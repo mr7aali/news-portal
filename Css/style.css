@@ -56,3 +56,22 @@ hr{
 /* ------------news section start------------------ */
 
 
+.news-container{
+    border: 1px solid red;
+    width: 1170px;
+    margin: 0 auto;
+    display: flex;
+   /* flex-wrap: wrap; */
+   justify-content: space-between;
+}
+.img-div{
+    width: 244px;
+    height: 300px;
+    background-color: black;
+    margin: 20px;
+    display: inline-block;
+}
+.news-container .Blog h2{
+    font-size: 24px;
+
+}
