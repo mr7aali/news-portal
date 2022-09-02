@@ -38,25 +38,37 @@ const displayNews = (newses)=>{
         
         const newDiv = document.createElement('div');
         
+    
+  if(news.details.length > 20){
+    var sliceNews =  news.details.slice(0,50) +'....';
+    console.log(sliceNews)
+  }
+  else{
+     sliceNews = news.details;
+  }
+
         newDiv.innerHTML=`
-        
-        <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="${news.thumbnail_url}" class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">${news.title}</h5>
-              <p class="card-text">${news.details}</p>
-              
-            </div>
+        <div class="news-container">
+
+             <div class="img-div">
+                <img src="${news.thumbnail_url}" class="img-fluid rounded-start" alt="...">
+              </div> 
+
+        <div class="Blog">
+           <h1>${news.title}</h1>
+           <p>${sliceNews}</p>
+
+           <div class="blog-details">                    
+                    <span><div class="author-img"> <img src="" alt="">  </div><span>Name</span></span>
+                    <p>View</p> 
           </div>
         </div>
       </div>
-        
+       
         `;
         newsContainer.appendChild(newDiv);
     }
 }
+
+
 loadCatagoris();
