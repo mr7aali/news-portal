@@ -1,66 +1,70 @@
-const loadCatagoris =()=>{
-    const url = `https://openapi.programming-hero.com/api/news/categories`;
-    fetch(url)
+const loadCatagoris = () => {
+  const url = `https://openapi.programming-hero.com/api/news/categories`;
+  fetch(url)
     .then(res => res.json())
-    // .then(data => displayCatagoris(data.data))
     .then(data => displayCatagoris(data.data.news_category))
+    .catch(error => console.log(error)) ///this line for unexpected error ()
+
 }
 
-const displayCatagoris=(Catagoris)=>{
-    const catagoryNav = document.getElementById('Catagory');
+const displayCatagoris = (Catagoris) => {
+  const catagoryNav = document.getElementById('Catagory');
 
-    for(const Catagory of Catagoris){
-        //  console.log(Catagory);
+  for (const Catagory of Catagoris) {
+    //  console.log(Catagory);
 
-      const crteatSpan =document.createElement('span');
-      crteatSpan.innerHTML =`
+    const crteatSpan = document.createElement('span');
+    crteatSpan.innerHTML = `
       <span onclick="getIdForSpanTag('${Catagory.category_id}')">${Catagory.category_name} </span>   
       `;
-      catagoryNav.appendChild(crteatSpan);
+    catagoryNav.appendChild(crteatSpan);
 
-      
-    }
+
+  }
 }
 
-const getIdForSpanTag=(id)=>{
-    // console.log(id);
-    const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
-    fetch(url)
-    .then(res=>res.json())
-    .then(  data =>displayNews(data.data));
+const getIdForSpanTag = (id) => {
+  // console.log(id);
+  const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
+  fetch(url)
+    .then(res => res.json())
+    .then(data => displayNews(data.data))
+
+    .catch(errr => console.log(errr)); ///this line for unexpected error ()
+
+
 }
 
-const displayNews = (newses)=>{
-    //console.log(newses);
-    var tem =0;
+
+const displayNews = (newses) => {
+  //console.log(newses);
+  var tem = 0;
 
 
-    document.getElementById('footer').classList.remove('d-none');
-  const newsContainer =document.getElementById('full-news-container');
-  newsContainer.innerHTML=``;
-   
+  document.getElementById('footer').classList.remove('d-none');
+  const newsContainer = document.getElementById('full-news-container');
+  newsContainer.innerHTML = ``;
 
-    for(const news of newses){
-     
+  // console.log(newses);
+  for (const news of newses) {
+
     
-        console.log(news.author);
-        
-        const newDiv = document.createElement('div');
+    const newDiv = document.createElement('div');
 
-  if(news.details.length > 100){
-    news.details =  (news.details.slice(0,500))  ;
-    //console.log(sliceNews)
-  }
-  else{
-     sliceNews = news.details;
-  }
-  // let date = news.author.published_date.length;
-//date = news.author.published_date.slice(0,10);
+    if (news.details.length > 100) {
+      news.details = (news.details.slice(0, 500));
+      //console.log(sliceNews)
+    }
+    else {
+      sliceNews = news.details;
+    }
+    // let date = news.author.published_date.length;
+    //date = news.author.published_date.slice(0,10);
 
-   
 
-        newDiv.innerHTML =`
-        <article>
+
+    newDiv.innerHTML = `
+        <article  data-bs-toggle="modal" data-bs-target="#exampleModal">
         <div class="img-container">
              <img src="${news.thumbnail_url}" alt="">
         </div>
@@ -80,7 +84,7 @@ const displayNews = (newses)=>{
                                <p>${news.author.published_date}</p>
                               </div>
                         </div>
-                        <div><span><i class="fa-solid fa-eye"></i> ${news.total_view  ? news.total_view+'k':'Unknown' }</span></div>
+                        <div><span><i class="fa-solid fa-eye"></i> ${news.total_view ? news.total_view + 'k' : 'Unknown'}</span></div>
                         <div id="Rating"> 
                          <i class="fa-solid fa-star"></i>
                          <i class="fa-solid fa-star"></i>
@@ -94,15 +98,44 @@ const displayNews = (newses)=>{
         </div>
   </article>
         `;
-  
-        newsContainer.appendChild(newDiv);
-        tem++;
-        console.log(tem);
-    }
-    document.getElementById('found-data-id').innerHTML=`
-      <h2>${tem} items found for category Entertainment</h2>
-    
-    `;
-   
+
+    newsContainer.appendChild(newDiv);
+    tem++;
+
+
+    ///console.log(news._id);
+    const code =news._id ;
+     
+      const Detailsurl =`https://openapi.programming-hero.com/api/news/${code}`;
+      fetch(Detailsurl)
+      .then(res=>res.json())
+      .then(data=>console.log(data.data[0]));
+     
+
+  }
+
+ 
+  if (tem === 0) {
+    document.getElementById('found-data-id').innerHTML = `
+      <div class="found-data">
+        <h2>No News Found</h2>
+        </div>
+      `;
+  }
+  else {
+    document.getElementById('found-data-id').innerHTML = `
+      <div class="found-data">
+        <h2>${tem} items found for category Entertainment</h2>
+        </div>
+      `;
+  }
+
+
+
 }
+
+
+ const modalDetails=()=>{
+  
+ }
 loadCatagoris();
