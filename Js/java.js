@@ -23,7 +23,7 @@ const displayCatagoris=(Catagoris)=>{
 }
 
 const getIdForSpanTag=(id)=>{
-//console.log(id);
+    // console.log(id);
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
     fetch(url)
     .then(res=>res.json())
@@ -32,9 +32,17 @@ const getIdForSpanTag=(id)=>{
 
 const displayNews = (newses)=>{
     //console.log(newses);
+    var tem =0;
+
+
+    document.getElementById('footer').classList.remove('d-none');
   const newsContainer =document.getElementById('full-news-container');
   newsContainer.innerHTML=``;
+   
+
     for(const news of newses){
+     
+    
         console.log(news.author);
         
         const newDiv = document.createElement('div');
@@ -46,7 +54,8 @@ const displayNews = (newses)=>{
   else{
      sliceNews = news.details;
   }
-   const date = news.author.published_date.slice(0,10);
+  // let date = news.author.published_date.length;
+//date = news.author.published_date.slice(0,10);
 
    
 
@@ -68,7 +77,7 @@ const displayNews = (newses)=>{
                               </div>
                               <div class="author-name">
                                <p> ${news.author.name ? news.author.name : 'Unknown'}</p>
-                               <p>${date}</p>
+                               <p>${news.author.published_date}</p>
                               </div>
                         </div>
                         <div><span><i class="fa-solid fa-eye"></i> ${news.total_view  ? news.total_view+'k':'Unknown' }</span></div>
@@ -87,9 +96,13 @@ const displayNews = (newses)=>{
         `;
   
         newsContainer.appendChild(newDiv);
+        tem++;
+        console.log(tem);
     }
+    document.getElementById('found-data-id').innerHTML=`
+      <h2>${tem} items found for category Entertainment</h2>
+    
+    `;
+   
 }
-
-
-
 loadCatagoris();
