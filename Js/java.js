@@ -35,7 +35,7 @@ const displayNews = (newses)=>{
   const newsContainer =document.getElementById('full-news-container');
   newsContainer.innerHTML=``;
     for(const news of newses){
-        console.log(news.total_view);
+        console.log(news.author);
         
         const newDiv = document.createElement('div');
 
@@ -47,6 +47,8 @@ const displayNews = (newses)=>{
      sliceNews = news.details;
   }
    const date = news.author.published_date.slice(0,10);
+
+   
 
         newDiv.innerHTML =`
         <article>
@@ -65,11 +67,11 @@ const displayNews = (newses)=>{
                                 
                               </div>
                               <div class="author-name">
-                               <p> ${news.author.name}</p>
+                               <p> ${news.author.name ? news.author.name : 'Unknown'}</p>
                                <p>${date}</p>
                               </div>
                         </div>
-                        <div><span><i class="fa-solid fa-eye"></i> ${news.total_view}k</span></div>
+                        <div><span><i class="fa-solid fa-eye"></i> ${news.total_view  ? news.total_view+'k':'Unknown' }</span></div>
                         <div id="Rating"> 
                          <i class="fa-solid fa-star"></i>
                          <i class="fa-solid fa-star"></i>

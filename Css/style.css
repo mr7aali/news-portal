@@ -39,8 +39,12 @@ body .full-body{
     width: 38px;
     height: 38px;
     background-color:whitesmoke;
-    border: 1px solid blue;
     display: inline-block;
+    border-radius: 50px;
+}
+.round-img img{
+    width: 100%;
+    height: 100%;
     border-radius: 50px;
 }
 hr{
