@@ -64,7 +64,7 @@ const displayNews = (newses) => {
 
 
     newDiv.innerHTML = `
-        <article  data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <article onclick="modalDetails('${news._id}')"  data-bs-toggle="modal" data-bs-target="#exampleModal">
         <div class="img-container">
              <img src="${news.thumbnail_url}" alt="">
         </div>
@@ -104,12 +104,9 @@ const displayNews = (newses) => {
 
 
     ///console.log(news._id);
-    const code =news._id ;
-     
-      const Detailsurl =`https://openapi.programming-hero.com/api/news/${code}`;
-      fetch(Detailsurl)
-      .then(res=>res.json())
-      .then(data=>console.log(data.data[0]));
+    // const code =news._id ;
+    // console.log(code);
+    
      
 
   }
@@ -135,7 +132,32 @@ const displayNews = (newses) => {
 }
 
 
- const modalDetails=()=>{
-  
+ const modalDetails=(code)=>{    
+  const Detailsurl =`https://openapi.programming-hero.com/api/news/${code}`;
+  fetch(Detailsurl)
+  .then(res=>res.json())
+  .then(data=> displayDetails(data.data[0]));
+      
+ }
+
+ const displayDetails=(data)=>{
+    console.log(data);
+    const name =data.details;
+    console.log(name);
+
+
+
+    document.getElementById('exampleModalLabel').innerText=`${data.author.name?data.author.name : 'Name Unknown'}`;
+    document.getElementById('news-details').innerText=`${data.details}`;
+   // document.getElementById('modal-body1').innerHTML=`
+      
+
+   // <div class="img-container">
+  //  <img src="${data.thumbnail_url}" alt="">
+   //</img> 
+   // </div>
+    
+    
+  //  `;
  }
 loadCatagoris();
