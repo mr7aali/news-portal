@@ -1,0 +1,18 @@
+@media only screen and (max-width:1199px) {
+
+    body .full-body{
+        width: 90vw;
+    }
+ .img-container{
+   
+ }
+ .found-data{
+    width: auto;
+ }
+ footer{
+    display: none;
+ }
+ article{
+    margin: 0;
+ }
+}
